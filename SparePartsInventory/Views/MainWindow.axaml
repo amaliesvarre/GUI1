@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SparePartsInventory.ViewModels"
+        x:Class="SparePartsInventory.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Width="900" Height="560"
+        Title="Spare Parts Inventory - Activity 41">
+
+  <Window.DataContext>
+    <vm:MainWindowViewModel />
+  </Window.DataContext>
+
+  <DockPanel Margin="16">
+    <!-- Top bar -->
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="12">
+      <Button Content="Process next ➜" Command="{Binding ProcessNextCommand}" />
+      <TextBlock Text="Total revenue:" VerticalAlignment="Center" Margin="16,0,4,0"/>
+      <TextBlock Text="{Binding TotalRevenue}" FontWeight="Bold" VerticalAlignment="Center"/>
+      <TextBlock Text=" kr" VerticalAlignment="Center"/>
+    </StackPanel>
+
+    <!-- Two tables -->
+    <Grid ColumnDefinitions="*,*"
+          RowDefinitions="Auto,*,Auto,*"
+          Margin="0,12,0,0">
+
+      <TextBlock Grid.ColumnSpan="2"
+                 Text="Queued orders"
+                 FontWeight="Bold"/>
+
+      <!-- Queued orders -->
+      <DataGrid Grid.Row="1" Grid.ColumnSpan="2"
+                ItemsSource="{Binding QueuedOrders}"
+                AutoGenerateColumns="False"
+                GridLinesVisibility="All"
+                IsReadOnly="True"
+                Margin="0,6,0,12">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Time"  Binding="{Binding Time, StringFormat=G}" />
+          <DataGridTextColumn Header="Lines" Binding="{Binding LinesCount}" />
+          <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=0.00}" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <TextBlock Grid.Row="2" Grid.Column="0"
+                 Text="Processed orders"
+                 FontWeight="Bold"/>
+
+      <!-- Processed orders -->
+      <DataGrid Grid.Row="3" Grid.Column="0"
+                ItemsSource="{Binding ProcessedOrders}"
+                AutoGenerateColumns="False"
+                GridLinesVisibility="All"
+                IsReadOnly="True"
+                Margin="0,6,8,0">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Time"  Binding="{Binding Time, StringFormat=G}" />
+          <DataGridTextColumn Header="Lines" Binding="{Binding LinesCount}" />
+          <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=0.00}" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <!-- tom højre kolonne til evt. senere udvidelse -->
+      <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" />
+    </Grid>
+  </DockPanel>
+</Window>
