@@ -1,22 +1,49 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    </PropertyGroup>
+﻿namespace rpssl_resolve;                                                                                      
+                                                                                                              
+internal class Program                                                                                        
+{                                                                                                             
+    private static void Main(string[] args)                                                                   
+    {                                                                                                         
+        Console.WriteLine("Hej!");                                                                   
+                                                                                                              
+        Console.WriteLine("If p1: saks and p2: papir  =>  ");                                                 
+        // Print Win lose or tie.                                                                             
+        var state = StenSaksPapir.saks;                                                                       
+        resolve(StenSaksPapir.saks, StenSaksPapir.papir);                                                     
+    }                                                                                                         
+                                                                                                              
+    private static void resolve(StenSaksPapir p1, StenSaksPapir p2)                                           
+    {                                                                                                         
+        switch (p2 - p1)                                                                                      
+        {                                                                                                     
+            case 0:                                                                                           
+                Console.WriteLine("tie");                                                                     
+                break;                                                                                        
+                                                                                                              
+            case -4 or -2 or 1 or 3:                                                                          
+                Console.WriteLine("spilleren vinder");                                                        
+                break;                                                                                        
+                                                                                                              
+            case -3 or -1 or 2 or 4:                                                                          
+                Console.WriteLine("Spilleren taber");                                                         
+                break;                                                                                        
+        }                                                                                                     
+    }                                                                                                         
+                                                                                                              
+    internal enum StenSaksPapir                                                                               
+    {                                                                                                         
+        saks,                                                                                                 
+        papir,                                                                                                
+        sten,                                                                                                 
+        lizard,                                                                                               
+        spock                                                                                                 
+    }                                                                                                         
+}
 
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.3.6"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.3.6"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.6"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.6"/>
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.6">
-            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
-            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
-</Project>
+internal class Console
+{
+    public static void WriteLine(string helloWorld)
+    {
+        throw new System.NotImplementedException();
+    }
+}                                                                                                             
