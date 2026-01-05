@@ -1,28 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-    </PropertyGroup>
+﻿
+class Program
 
-    <ItemGroup>
-        <AvaloniaResource Include="Assets\**"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.3.6"/>
-        <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.6" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.3.6"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.6"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.6"/>
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Include="Avalonia.Diagnostics" Version="11.3.6">
-            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
-            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
-    </ItemGroup>
-</Project>
+       Console.WriteLine("Hej. Welcome to the spare parts inventory! ");
+bool partAvailable = false;
+while (!partAvailable)
+{
+    Console.Write("Which part do you need? ");
+    var line = Console.ReadLine();
+    if (line == "hydraulic pump" || line == "PLC module" || line == "servo motor")
+    {
+        Console.WriteLine($"I have got {line} here for you 😊. Bye!");
+        partAvailable = true;
+    }
+    else  if (line == "Do you actually have any parts?" || line == "Is there anything in stock at all?")
+    {
+        Console.WriteLine("""
+                          We have 3 part(s)!
+                          hydraulic pump
+                          PLC module
+                          servo motor
+                          """);
+    }
+    else
+        Console.WriteLine($"I am afraid we don’t have any {line} in the inventory");
+}
+                          
